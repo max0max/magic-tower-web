@@ -1,32 +1,36 @@
 # Magic Tower Web
 
-A future click-to-play Magic Tower game hosted as a static web project.
+A click-to-play Magic Tower game hosted as a static web project.
 
-The repository is initialized for GitHub Pages, but the game goal has not been
-implemented yet. The current site is a placeholder that keeps the publishing
-path simple while the gameplay contract remains separate.
+The game runs entirely in the browser: move through the tower, collect keys,
+open doors, pick up stat items, win deterministic battles, and reach the exit.
 
 ## Play
 
-Online play link, after the repository is published with GitHub Pages:
+Click the online play link after the repository is published with GitHub Pages:
 
 ```text
 https://<github-username>.github.io/magic-tower-web/
 ```
 
-Players should only need to open the published URL in a browser. They should
-not need to clone the repository, install dependencies, or start a local server.
+The player path is the public URL. No local setup is part of playing.
 
 ## Repository Shape
 
 - `site/` contains the static web entry point that GitHub Pages deploys.
 - `.github/workflows/pages.yml` deploys `site/` to GitHub Pages.
-- `GOAL_CONTRACT.md` preserves the future playable-game contract.
-- `docs/superpowers/` contains the initialization design and plan notes.
+- `GOAL_CONTRACT.md` preserves the playable-game contract.
+- `docs/goal-progress-log.md` records goal execution state and verification.
+- `docs/superpowers/` contains design and implementation plan notes.
 
 ## Development
 
-For now, open `site/index.html` directly in a browser to inspect the placeholder.
-No package manager is required.
+The deployed player page remains static, but development uses Node's built-in
+test runner:
 
-Future gameplay work should keep the final player experience static-hostable.
+```powershell
+npm test
+```
+
+You can also open `site/index.html` directly in a browser for a quick local
+smoke check.
