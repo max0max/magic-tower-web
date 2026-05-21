@@ -50,6 +50,7 @@ button {
 
 .game-shell {
   width: min(1120px, 100%);
+  max-width: 100%;
   margin: 0 auto;
   padding: 28px 20px 36px;
 }
@@ -57,6 +58,8 @@ button {
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
+  min-width: 0;
+  max-width: 100%;
   gap: 24px;
   align-items: end;
   border-bottom: 1px solid var(--line);
@@ -94,6 +97,7 @@ h2 {
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .actions {
@@ -122,12 +126,16 @@ h2 {
 .play-area {
   display: grid;
   grid-template-columns: 240px minmax(320px, 1fr) 204px;
+  min-width: 0;
+  max-width: 100%;
   gap: 20px;
   align-items: start;
   padding-top: 24px;
 }
 
 .status-panel {
+  min-width: 0;
+  max-width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -294,7 +302,7 @@ h2 {
 
   .actions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     justify-content: stretch;
   }
 

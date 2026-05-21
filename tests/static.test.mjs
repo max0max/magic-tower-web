@@ -37,7 +37,9 @@ test("the stylesheet includes responsive grid and mobile control rules", async (
   assert.match(css, /min-width:\s*64px/);
   assert.match(css, /overflow-x:\s*hidden/);
   assert.match(css, /\.stats\s*{\s*grid-template-columns:\s*1fr;/s);
+  assert.match(css, /\.actions\s*{\s*display:\s*grid;\s*grid-template-columns:\s*1fr;/s);
   assert.match(css, /width:\s*min\(100%,\s*360px\)/);
+  assert.match(css, /max-width:\s*100%/);
   assert.doesNotMatch(css, /font-size:[^;]*vw/);
 });
 
