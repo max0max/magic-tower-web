@@ -294,6 +294,7 @@ h2 {
   .game-shell {
     width: 320px;
     max-width: calc(100% - 24px);
+    margin: 0 0 0 12px;
     padding: 20px 0 28px;
   }
 
