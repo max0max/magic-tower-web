@@ -7,10 +7,10 @@ open doors, pick up stat items, win deterministic battles, and reach the exit.
 
 ## Play
 
-Click the online play link after the repository is published with GitHub Pages:
+Click the online play link:
 
 ```text
-https://<github-username>.github.io/magic-tower-web/
+https://max0max.github.io/magic-tower-web/
 ```
 
 The player path is the public URL. No local setup is part of playing.

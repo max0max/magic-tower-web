@@ -26,12 +26,15 @@ test("the stylesheet includes responsive grid and mobile control rules", async (
   assert.match(css, /grid-template-columns:\s*repeat\(7,\s*1fr\)/);
   assert.match(css, /@media\s*\(max-width:\s*720px\)/);
   assert.match(css, /\.control-pad/);
+  assert.match(css, /grid-template-columns:\s*repeat\(3,\s*64px\)/);
+  assert.match(css, /min-width:\s*64px/);
 });
 
 test("README presents a player-facing online play path without local setup as a player requirement", async () => {
   const readme = await read("README.md");
 
-  assert.match(readme, /https:\/\/<github-username>\.github\.io\/magic-tower-web\//);
+  assert.match(readme, /https:\/\/max0max\.github\.io\/magic-tower-web\//);
+  assert.doesNotMatch(readme, /<github-username>/);
   assert.match(readme, /Click the online play link/i);
   assert.doesNotMatch(readme, /Players should.*clone/i);
   assert.doesNotMatch(readme, /Players should.*install/i);

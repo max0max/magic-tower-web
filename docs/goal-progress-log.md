@@ -3,11 +3,11 @@
 ## Goal Summary
 - Goal: Deliver a pure frontend Magic Tower V1 game from a public GitHub Pages or equivalent GitHub static URL, so players can click and play without local setup.
 - Status: on_track
-- Last checkpoint: 2026-05-22T00:43:00+08:00
+- Last checkpoint: 2026-05-22T00:55:00+08:00
 
 ## Current Execution State
-- Completed since last checkpoint: committed and pushed the playable implementation, created the public GitHub repository, reproduced the first Pages failure, added a regression test for Pages enablement, and fixed the workflow.
-- Current focus: push the Pages workflow fix, rerun deployment, verify the resulting GitHub Pages URL, then invoke the contract verifier.
+- Completed since last checkpoint: enabled GitHub Pages via REST API, reran the Pages workflow successfully, verified the public URL and static assets, verified browser interaction on the public page, and fixed a control-button overflow found in the screenshot check.
+- Current focus: push README/test/style/evidence updates, redeploy the final static site, then invoke the contract verifier.
 
 ## Attempted Paths
 - Path: Test-first local implementation with Node's built-in test runner.
@@ -28,6 +28,18 @@
 - Path: Pages workflow regression fix.
   Result: worked locally
   Evidence: a new static test failed on missing `enablement: true`; after adding `with: enablement: true`, `npm test` passed 11/11.
+- Path: Enable Pages through GitHub REST API.
+  Result: worked
+  Evidence: `gh api -X POST repos/MAX0MAX/magic-tower-web/pages -f build_type=workflow` returned `html_url: https://max0max.github.io/magic-tower-web/`.
+- Path: Rerun Pages workflow after enabling Pages.
+  Result: worked
+  Evidence: workflow run `26239122368` completed with conclusion `success`.
+- Path: Public browser interaction check.
+  Result: worked
+  Evidence: Codex browser opened `https://max0max.github.io/magic-tower-web/`, clicked `Start game`, clicked `Move right` twice, and observed `Picked up a yellow key`.
+- Path: Screenshot visual check.
+  Result: partial
+  Evidence: screenshot saved to `docs/verification/public-game.png`; it revealed the `Right` control label was too narrow, so a CSS regression test and width fix were added.
 
 ## Verified Evidence
 - Criterion: Core mechanics
@@ -40,15 +52,26 @@
   Proof: `git diff --check` exited with no output.
 - Criterion: Public GitHub repository
   Proof: `gh repo view` reported public repository `MAX0MAX/magic-tower-web`.
+- Criterion: Public online play entry point
+  Proof: GitHub Pages API reported `html_url: https://max0max.github.io/magic-tower-web/`, public `true`, HTTPS enforced `true`.
+- Criterion: Public page and assets load
+  Proof: `Invoke-WebRequest` returned 200 for `/`, `/main.js`, `/game.js`, and `/styles.css` on `https://max0max.github.io/magic-tower-web/`.
+- Criterion: Browser playability
+  Proof: Browser verification on the public URL loaded title `Magic Tower Web`, clicked `Start game`, moved right twice, and saw the key pickup message.
+- Criterion: Visual evidence
+  Proof: Screenshot artifact saved at `docs/verification/public-game.png`; CSS control sizing was corrected afterward and covered by `npm test`.
 
 ## Active Blockers
 - none
 
 ## Resume From Here
-- Next action: commit and push the Pages enablement fix, rerun the Pages workflow, and verify the resulting public URL.
+- Next action: commit and push final README, CSS, test, progress-log, and screenshot updates, rerun the Pages workflow, then invoke the verifier with the full evidence package.
 - Avoid repeating: do not retry `file://` browser automation in Codex; verify the public URL instead after publish.
 
 ## Checkpoint History
+### 2026-05-22T00:55:00+08:00 - on_track
+- Summary: Public Pages deployment succeeded and public browser interaction worked. A visual control-width issue found in screenshot review was fixed locally and awaits final push/deploy.
+
 ### 2026-05-22T00:43:00+08:00 - on_track
 - Summary: Public repo was created and initial deployment failure was diagnosed to missing Pages enablement. Workflow fix is ready to commit and rerun.
 
