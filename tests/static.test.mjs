@@ -15,8 +15,15 @@ test("the static page exposes a playable shell, module script, and controls", as
   assert.match(html, /data-action="start"/);
   assert.match(html, /data-action="restart"/);
   assert.match(html, /id="tower-grid"/);
-  assert.match(html, /type="module"[^>]+src="\.\/main\.js"/);
+  assert.match(html, /href="\.\/styles\.css\?v=\d{8}"/);
+  assert.match(html, /type="module"[^>]+src="\.\/main\.js\?v=\d{8}"/);
   assert.doesNotMatch(html, /not implemented|intentionally pending/i);
+});
+
+test("the browser module import uses a versioned game engine URL", async () => {
+  const main = await read("site/main.js");
+
+  assert.match(main, /from "\.\/game\.js\?v=\d{8}"/);
 });
 
 test("the stylesheet includes responsive grid and mobile control rules", async () => {

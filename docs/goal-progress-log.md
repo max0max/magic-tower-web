@@ -3,11 +3,11 @@
 ## Goal Summary
 - Goal: Deliver a pure frontend Magic Tower V1 game from a public GitHub Pages or equivalent GitHub static URL, so players can click and play without local setup.
 - Status: on_track
-- Last checkpoint: 2026-05-22T00:55:00+08:00
+- Last checkpoint: 2026-05-22T01:05:00+08:00
 
 ## Current Execution State
-- Completed since last checkpoint: enabled GitHub Pages via REST API, reran the Pages workflow successfully, verified the public URL and static assets, verified browser interaction on the public page, and fixed a control-button overflow found in the screenshot check.
-- Current focus: push README/test/style/evidence updates, redeploy the final static site, then invoke the contract verifier.
+- Completed since last checkpoint: final Pages deploy succeeded, public CSS was confirmed updated, browser cache was found to still hold the old unversioned stylesheet, and versioned asset URLs were added with regression coverage.
+- Current focus: push the cache-busting fix, redeploy the final static site, verify public interaction once more, then invoke the contract verifier.
 
 ## Attempted Paths
 - Path: Test-first local implementation with Node's built-in test runner.
@@ -40,6 +40,15 @@
 - Path: Screenshot visual check.
   Result: partial
   Evidence: screenshot saved to `docs/verification/public-game.png`; it revealed the `Right` control label was too narrow, so a CSS regression test and width fix were added.
+- Path: Final push deploy after CSS fix.
+  Result: worked
+  Evidence: workflow run `26239280144` completed with conclusion `success` for commit `478cfc2`.
+- Path: Public CSS cache check.
+  Result: partial
+  Evidence: direct `Invoke-WebRequest` showed `styles.css` contained 64px controls, but browser computed the already-loaded unversioned control width as 42px.
+- Path: Static asset cache-busting regression fix.
+  Result: worked locally
+  Evidence: tests first failed while `index.html` and `main.js` referenced unversioned assets; after adding `?v=20260522`, `npm test` passed 12/12.
 
 ## Verified Evidence
 - Criterion: Core mechanics
@@ -60,15 +69,20 @@
   Proof: Browser verification on the public URL loaded title `Magic Tower Web`, clicked `Start game`, moved right twice, and saw the key pickup message.
 - Criterion: Visual evidence
   Proof: Screenshot artifact saved at `docs/verification/public-game.png`; CSS control sizing was corrected afterward and covered by `npm test`.
+- Criterion: Cache-safe static assets
+  Proof: `npm test` now requires versioned `styles.css`, `main.js`, and browser `game.js` imports.
 
 ## Active Blockers
 - none
 
 ## Resume From Here
-- Next action: commit and push final README, CSS, test, progress-log, and screenshot updates, rerun the Pages workflow, then invoke the verifier with the full evidence package.
+- Next action: commit and push the cache-busting fix, rerun the Pages workflow, refresh public browser verification, then invoke the verifier with the full evidence package.
 - Avoid repeating: do not retry `file://` browser automation in Codex; verify the public URL instead after publish.
 
 ## Checkpoint History
+### 2026-05-22T01:05:00+08:00 - on_track
+- Summary: Public deployment worked, but browser cache kept the old stylesheet in the open verification tab. Versioned asset URLs were added and covered by tests.
+
 ### 2026-05-22T00:55:00+08:00 - on_track
 - Summary: Public Pages deployment succeeded and public browser interaction worked. A visual control-width issue found in screenshot review was fixed locally and awaits final push/deploy.
 
