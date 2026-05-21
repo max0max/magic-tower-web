@@ -292,7 +292,8 @@ h2 {
 
 @media (max-width: 720px) {
   .game-shell {
-    width: calc(100% - 24px);
+    width: 320px;
+    max-width: calc(100% - 24px);
     padding: 20px 0 28px;
   }
 
@@ -324,7 +325,11 @@ h2 {
   }
 
   h1 {
-    font-size: 2.45rem;
+    font-size: 2.18rem;
     line-height: 1;
+  }
+
+  .lead {
+    max-width: 30ch;
   }
 }
