@@ -42,6 +42,7 @@ test("GitHub Pages workflow deploys the static site directory", async () => {
 
   assert.match(workflow, /branches:\s*\n\s*-\s*main/);
   assert.match(workflow, /uses:\s*actions\/configure-pages@v5/);
+  assert.match(workflow, /enablement:\s*true/);
   assert.match(workflow, /uses:\s*actions\/upload-pages-artifact@v4/);
   assert.match(workflow, /path:\s*\.\/site/);
   assert.match(workflow, /uses:\s*actions\/deploy-pages@v4/);

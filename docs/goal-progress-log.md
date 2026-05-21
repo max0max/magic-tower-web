@@ -3,11 +3,11 @@
 ## Goal Summary
 - Goal: Deliver a pure frontend Magic Tower V1 game from a public GitHub Pages or equivalent GitHub static URL, so players can click and play without local setup.
 - Status: on_track
-- Last checkpoint: 2026-05-22T00:34:00+08:00
+- Last checkpoint: 2026-05-22T00:43:00+08:00
 
 ## Current Execution State
-- Completed since last checkpoint: test harness, deterministic Magic Tower engine, playable static UI, README player-path update, and local verification.
-- Current focus: commit the implementation, publish the repository to GitHub if possible, verify the public URL, then invoke the contract verifier.
+- Completed since last checkpoint: committed and pushed the playable implementation, created the public GitHub repository, reproduced the first Pages failure, added a regression test for Pages enablement, and fixed the workflow.
+- Current focus: push the Pages workflow fix, rerun deployment, verify the resulting GitHub Pages URL, then invoke the contract verifier.
 
 ## Attempted Paths
 - Path: Test-first local implementation with Node's built-in test runner.
@@ -19,6 +19,15 @@
 - Path: Local temporary HTTP smoke server on `127.0.0.1:4173`.
   Result: failed
   Evidence: Node server bind failed with `EACCES: permission denied 127.0.0.1:4173`.
+- Path: Create public GitHub repository and push `main`.
+  Result: worked
+  Evidence: `gh repo create magic-tower-web --public --source=. --remote=origin --push` created `https://github.com/MAX0MAX/magic-tower-web` and pushed `main`.
+- Path: First GitHub Pages workflow run.
+  Result: failed
+  Evidence: run `26238961671` failed at `Configure Pages` because the new repository had no Pages site and `actions/configure-pages@v5` ran with `enablement: false`.
+- Path: Pages workflow regression fix.
+  Result: worked locally
+  Evidence: a new static test failed on missing `enablement: true`; after adding `with: enablement: true`, `npm test` passed 11/11.
 
 ## Verified Evidence
 - Criterion: Core mechanics
@@ -29,15 +38,20 @@
   Proof: `npm test` passed checks for `site/index.html` playable shell, module script, start/restart controls, `#tower-grid`, responsive CSS, README play path, and GitHub Pages workflow.
 - Criterion: Repository hygiene
   Proof: `git diff --check` exited with no output.
+- Criterion: Public GitHub repository
+  Proof: `gh repo view` reported public repository `MAX0MAX/magic-tower-web`.
 
 ## Active Blockers
 - none
 
 ## Resume From Here
-- Next action: commit the local implementation, publish with `gh` if the repository name is available, and verify the resulting GitHub Pages URL.
+- Next action: commit and push the Pages enablement fix, rerun the Pages workflow, and verify the resulting public URL.
 - Avoid repeating: do not retry `file://` browser automation in Codex; verify the public URL instead after publish.
 
 ## Checkpoint History
+### 2026-05-22T00:43:00+08:00 - on_track
+- Summary: Public repo was created and initial deployment failure was diagnosed to missing Pages enablement. Workflow fix is ready to commit and rerun.
+
 ### 2026-05-22T00:34:00+08:00 - on_track
 - Summary: Red tests were written first, implementation was added, and local verification passed. Public GitHub Pages verification is still pending.
 

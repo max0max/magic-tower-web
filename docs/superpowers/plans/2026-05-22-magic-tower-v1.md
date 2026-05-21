@@ -76,7 +76,7 @@ Run `npm test`. Expected: static repository and UI checks pass.
 
 Run `npm test`, `git diff --check`, inspect `git status`, and run a browser-accessible local static smoke check.
 
-- [ ] **Step 2: Try GitHub publication**
+- [x] **Step 2: Try GitHub publication**
 
 Use available GitHub CLI authentication to create or connect a GitHub repository, push `main`, and enable/verify Pages if possible.
 
