@@ -3,11 +3,11 @@
 ## Goal Summary
 - Goal: Deliver a pure frontend Magic Tower V1 game from a public GitHub Pages or equivalent GitHub static URL, so players can click and play without local setup.
 - Status: on_track
-- Last checkpoint: 2026-05-22T01:05:00+08:00
+- Last checkpoint: 2026-05-22T01:20:00+08:00
 
 ## Current Execution State
-- Completed since last checkpoint: final Pages deploy succeeded, public CSS was confirmed updated, browser cache was found to still hold the old unversioned stylesheet, and versioned asset URLs were added with regression coverage.
-- Current focus: push the cache-busting fix, redeploy the final static site, verify public interaction once more, then invoke the contract verifier.
+- Completed since last checkpoint: final cache-busted/mobile layout deploy succeeded, desktop browser interaction was verified on the public URL, and desktop/mobile screenshots were captured.
+- Current focus: commit final verification artifacts and invoke the contract verifier.
 
 ## Attempted Paths
 - Path: Test-first local implementation with Node's built-in test runner.
@@ -48,7 +48,16 @@
   Evidence: direct `Invoke-WebRequest` showed `styles.css` contained 64px controls, but browser computed the already-loaded unversioned control width as 42px.
 - Path: Static asset cache-busting regression fix.
   Result: worked locally
-  Evidence: tests first failed while `index.html` and `main.js` referenced unversioned assets; after adding `?v=20260522`, `npm test` passed 12/12.
+  Evidence: tests first failed while `index.html` and `main.js` referenced unversioned assets; after adding versioned asset URLs and bumping them through `?v=2026052206`, `npm test` passed 12/12.
+- Path: Mobile viewport correction.
+  Result: worked
+  Evidence: mobile screenshot initially showed right-edge clipping; after tightening the mobile layout and bumping asset versions through `2026052206`, the final mobile screenshot no longer clips the visible content.
+- Path: Final Pages deployment.
+  Result: worked
+  Evidence: workflow run `26240025013` completed with conclusion `success` for commit `b9b963e`.
+- Path: Final public desktop interaction check.
+  Result: worked
+  Evidence: public URL `https://max0max.github.io/magic-tower-web/?verify=2026052206` loaded `./main.js?v=2026052206` and `./styles.css?v=2026052206`; clicking Start and Move Right twice produced `Picked up a yellow key`.
 
 ## Verified Evidence
 - Criterion: Core mechanics
@@ -71,15 +80,22 @@
   Proof: Screenshot artifact saved at `docs/verification/public-game.png`; CSS control sizing was corrected afterward and covered by `npm test`.
 - Criterion: Cache-safe static assets
   Proof: `npm test` now requires versioned `styles.css`, `main.js`, and browser `game.js` imports.
+- Criterion: Desktop and mobile usability
+  Proof: final desktop screenshot saved at `docs/verification/public-game-final.png`; final mobile screenshot saved at `docs/verification/public-game-mobile.png`.
+- Criterion: Final deployment
+  Proof: GitHub Actions run `26240025013` succeeded for commit `b9b963e`, and public asset checks confirmed `styles.css?v=2026052206` and `main.js?v=2026052206`.
 
 ## Active Blockers
 - none
 
 ## Resume From Here
-- Next action: commit and push the cache-busting fix, rerun the Pages workflow, refresh public browser verification, then invoke the verifier with the full evidence package.
+- Next action: commit and push final verification artifacts, then invoke the verifier with the full evidence package.
 - Avoid repeating: do not retry `file://` browser automation in Codex; verify the public URL instead after publish.
 
 ## Checkpoint History
+### 2026-05-22T01:20:00+08:00 - on_track
+- Summary: Final public desktop interaction and mobile screenshot checks passed after cache-busted mobile layout fixes. Verification artifacts are ready for commit and verifier review.
+
 ### 2026-05-22T01:05:00+08:00 - on_track
 - Summary: Public deployment worked, but browser cache kept the old stylesheet in the open verification tab. Versioned asset URLs were added and covered by tests.
 
