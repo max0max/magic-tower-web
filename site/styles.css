@@ -292,7 +292,8 @@ h2 {
 
 @media (max-width: 720px) {
   .game-shell {
-    padding: 20px 12px 28px;
+    width: calc(100% - 24px);
+    padding: 20px 0 28px;
   }
 
   .hero,
