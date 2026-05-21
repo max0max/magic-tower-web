@@ -80,6 +80,6 @@ Run `npm test`, `git diff --check`, inspect `git status`, and run a browser-acce
 
 Use available GitHub CLI authentication to create or connect a GitHub repository, push `main`, and enable/verify Pages if possible.
 
-- [ ] **Step 3: Invoke verifier**
+- [x] **Step 3: Invoke verifier**
 
 Dispatch a fresh verifier subagent with the Goal Contract, current progress, evidence, and blockers. Record the verdict in the progress log.
