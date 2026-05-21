@@ -6,7 +6,7 @@ import {
   newGame,
   restoreGame,
   serializeGame,
-} from "./game.js?v=20260522";
+} from "./game.js?v=2026052202";
 
 const STORAGE_KEY = "magic-tower-web-state";
 const stateFields = {

@@ -25,6 +25,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
   color: var(--ink);
   background:
     linear-gradient(rgba(255, 255, 255, 0.66), rgba(255, 255, 255, 0.26)),
@@ -78,7 +79,7 @@ h2 {
 
 h1 {
   margin: 0;
-  font-size: clamp(2.1rem, 8vw, 4.9rem);
+  font-size: 4.75rem;
   line-height: 0.96;
 }
 
@@ -188,7 +189,7 @@ h2 {
   border-radius: 4px;
   background: #d9ccb7;
   color: var(--ink);
-  font-size: clamp(0.64rem, 1.7vw, 0.95rem);
+  font-size: 0.86rem;
   font-weight: 900;
   line-height: 1;
   user-select: none;
@@ -292,18 +293,29 @@ h2 {
   }
 
   .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: stretch;
   }
 
   .actions button {
-    flex: 1 1 140px;
+    width: 100%;
   }
 
   .status-panel {
     padding: 14px;
   }
 
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
   .tower-grid {
-    width: min(100%, 92vw);
+    width: min(100%, 360px);
+  }
+
+  h1 {
+    font-size: 2.45rem;
+    line-height: 1;
   }
 }

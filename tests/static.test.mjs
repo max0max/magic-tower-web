@@ -15,15 +15,15 @@ test("the static page exposes a playable shell, module script, and controls", as
   assert.match(html, /data-action="start"/);
   assert.match(html, /data-action="restart"/);
   assert.match(html, /id="tower-grid"/);
-  assert.match(html, /href="\.\/styles\.css\?v=\d{8}"/);
-  assert.match(html, /type="module"[^>]+src="\.\/main\.js\?v=\d{8}"/);
+  assert.match(html, /href="\.\/styles\.css\?v=2026052202"/);
+  assert.match(html, /type="module"[^>]+src="\.\/main\.js\?v=2026052202"/);
   assert.doesNotMatch(html, /not implemented|intentionally pending/i);
 });
 
 test("the browser module import uses a versioned game engine URL", async () => {
   const main = await read("site/main.js");
 
-  assert.match(main, /from "\.\/game\.js\?v=\d{8}"/);
+  assert.match(main, /from "\.\/game\.js\?v=2026052202"/);
 });
 
 test("the stylesheet includes responsive grid and mobile control rules", async () => {
@@ -35,6 +35,10 @@ test("the stylesheet includes responsive grid and mobile control rules", async (
   assert.match(css, /\.control-pad/);
   assert.match(css, /grid-template-columns:\s*repeat\(3,\s*64px\)/);
   assert.match(css, /min-width:\s*64px/);
+  assert.match(css, /overflow-x:\s*hidden/);
+  assert.match(css, /\.stats\s*{\s*grid-template-columns:\s*1fr;/s);
+  assert.match(css, /width:\s*min\(100%,\s*360px\)/);
+  assert.doesNotMatch(css, /font-size:[^;]*vw/);
 });
 
 test("README presents a player-facing online play path without local setup as a player requirement", async () => {
